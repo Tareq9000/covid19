@@ -1,0 +1,1 @@
+This application shows the current covid19 situation.
