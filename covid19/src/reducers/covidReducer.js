@@ -1,13 +1,13 @@
 import { fetchAPI } from '../fetchAPI';
 
-export const fetchThisGraph = ( fetchLink ) => {
+export const getGlobalSummary = () => {
     return ( dispatch ) => {
-      fetchAPI(fetchLink).then(fetchData => {
+      fetchAPI('https://api.covid19api.com/summary').then(fetchData => {
 
         dispatch({
-          type : 'ADD_DATA',
+          type : 'SET_GLOBAL',
           payload : {
-            data : fetchData[0]
+            Global : fetchData[0].Global
           }
         })
       })
