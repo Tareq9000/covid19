@@ -6,6 +6,7 @@ import {
   Link
 } from "react-router-dom";
 import About from './About.jsx';
+import Summary from './Summary.jsx';
 
 export default function App() {
   return (
@@ -27,7 +28,7 @@ export default function App() {
             <About />
           </Route>
           <Route path="/summary">
-            <p>default data...</p>
+            <Summary />
           </Route>
         </Switch>
 
