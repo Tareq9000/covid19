@@ -30,6 +30,9 @@ export default function App() {
           <Route path="/summary">
             <Summary />
           </Route>
+          <Route path="/">
+            <Summary />
+          </Route>
         </Switch>
 
       </div>
