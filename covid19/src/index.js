@@ -13,7 +13,7 @@ const rendering = () => {
   ReactDOM.render(
     <Provider store={store}>
       <div>
-        hello
+        <Summary />
       </div>
     </Provider>,
     document.getElementById('root')
