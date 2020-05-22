@@ -2,7 +2,8 @@ import { fetchAPI } from '../fetchAPI';
 
 const initialState = {
   global: {},
-  countries: []
+  countries: [],
+  country: ""
 }
 
 const covidReducer = (state = initialState, action) => {
@@ -18,6 +19,11 @@ const covidReducer = (state = initialState, action) => {
         ...state,
         countries: action.payload.countries
       }
+      case 'SET_COUNTRY':
+        return {
+          ...state,
+          country: action.payload.country
+        }
     default:
       return state
   }
