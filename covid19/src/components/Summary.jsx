@@ -16,13 +16,13 @@ class Summary extends Component{
 
     render() {
         const { newConfirmed, totalConfirmed, newDeaths, totalDeaths, newRecovered, totalRecovered, countries, setCountry, country } = this.props
-        console.log(countries, "countries")
+
         return (
             <div>
                 <InputLabel>Country</InputLabel>
                 <Select value={country} onChange={setCountry}>
                     {countries.map(obj => (
-                        <MenuItem value={obj.Country}>{obj.Country}</MenuItem>
+                        <MenuItem key={obj.ISO2} value={obj.Country}>{obj.Country}</MenuItem>
                     ))}
                 </Select>
                 <p>new confirmed: {newConfirmed}</p>
