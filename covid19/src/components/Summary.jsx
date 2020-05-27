@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 
 import { connect } from 'react-redux';
 import { getGlobalSummary, getAllCountries } from '../reducers/covidReducer.js';
-import { Select, MenuItem, InputLabel } from '@material-ui/core';
+import { Select, MenuItem, InputLabel, FormControl, Paper, TableContainer, Table, TableHead, TableCell, TableBody, TableRow, Container } from '@material-ui/core';
 
 class Summary extends Component{
 
@@ -14,24 +14,48 @@ class Summary extends Component{
         setAllCountries();
     }
 
+    createRow (name, number) {
+        return { name, number };
+    }
+
     render() {
         const { newConfirmed, totalConfirmed, newDeaths, totalDeaths, newRecovered, totalRecovered, countries, setCountry, country } = this.props
 
+        const rows = [
+            this.createRow('new confirmed', newConfirmed),
+            this.createRow('total confirmed', totalConfirmed),
+            this.createRow('new deaths', newDeaths),
+            this.createRow('togtal deaths', totalDeaths),
+            this.createRow('new recovered', newRecovered),
+            this.createRow('total recovered', totalRecovered)
+        ];
+
         return (
-            <div>
-                <InputLabel>Country</InputLabel>
+            <Container>
+                <FormControl>
+                <InputLabel id="demo-simple-select-helper-label">Country</InputLabel>
                 <Select value={country} onChange={setCountry}>
                     {countries.map(obj => (
                         <MenuItem key={obj.ISO2} value={obj.Country}>{obj.Country}</MenuItem>
                     ))}
                 </Select>
-                <p>new confirmed: {newConfirmed}</p>
-                <p>total confirmed: {totalConfirmed}</p>
-                <p>new deaths: {newDeaths}</p>
-                <p>total deaths: {totalDeaths}</p>
-                <p>new recovered: {newRecovered}</p>
-                <p>total recovered: {totalRecovered}</p>
-            </div>
+                </FormControl>
+
+                <TableContainer component={Paper}>
+                    <Table size="small" aria-label="a dense table">
+                        <TableBody>
+                            {rows.map((row) => (
+                                <TableRow key={row.name}>
+                                    <TableCell component="th" scope="row">
+                                        {row.name}
+                                    </TableCell>
+                                    <TableCell align="right">{row.number}</TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            </Container>
         );
     }
 }
