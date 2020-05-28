@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 
 import { connect } from 'react-redux';
 import { getGlobalSummary, getAllCountries } from '../reducers/covidReducer.js';
-import { Select, MenuItem, InputLabel, FormControl, Paper, TableContainer, Table, TableHead, TableCell, TableBody, TableRow, Container } from '@material-ui/core';
+import { Select, MenuItem, InputLabel, FormControl, Paper, TableContainer, Table, TableHead, TableCell, TableBody, TableRow } from '@material-ui/core';
 
 class Summary extends Component{
 
@@ -25,13 +25,13 @@ class Summary extends Component{
             this.createRow('new confirmed', newConfirmed),
             this.createRow('total confirmed', totalConfirmed),
             this.createRow('new deaths', newDeaths),
-            this.createRow('togtal deaths', totalDeaths),
+            this.createRow('total deaths', totalDeaths),
             this.createRow('new recovered', newRecovered),
             this.createRow('total recovered', totalRecovered)
         ];
-
+        
         return (
-            <Container>
+            <div>
                 <FormControl>
                 <InputLabel id="demo-simple-select-helper-label">Country</InputLabel>
                 <Select value={country} onChange={setCountry}>
@@ -55,7 +55,7 @@ class Summary extends Component{
                         </TableBody>
                     </Table>
                 </TableContainer>
-            </Container>
+            </div>
         );
     }
 }
