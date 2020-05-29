@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { render } from 'react-dom';
 
 import { connect } from 'react-redux';
-import { getGlobalSummary, getAllCountries } from '../reducers/covidReducer.js';
+import { getGlobalSummary, getAllCountries, getSingleCountry } from '../reducers/covidReducer.js';
 import { Select, MenuItem, InputLabel } from '@material-ui/core';
 
 class Summary extends Component{
@@ -22,7 +22,7 @@ class Summary extends Component{
                 <InputLabel>Country</InputLabel>
                 <Select value={country} onChange={setCountry}>
                     {countries.map(obj => (
-                        <MenuItem key={obj.ISO2} value={obj.Country}>{obj.Country}</MenuItem>
+                        <MenuItem key={obj.ISO2} value={obj.Slug}>{obj.Country}</MenuItem>
                     ))}
                 </Select>
                 <p>new confirmed: {newConfirmed}</p>
@@ -51,6 +51,7 @@ const mapStateToProps = ( state ) => {
     }
 }
 const mapDispatchToProps = ( dispatch ) => {
+
     return {
         setGlobal: () => (
             dispatch(getGlobalSummary())
@@ -59,12 +60,7 @@ const mapDispatchToProps = ( dispatch ) => {
             dispatch(getAllCountries())
         ),
         setCountry: ( event ) => (
-            dispatch({
-                type: 'SET_COUNTRY',
-                payload: {
-                  country: event.target.value
-                } 
-            })
+            dispatch(getSingleCountry(event.target.value))
         )
     }
 }
