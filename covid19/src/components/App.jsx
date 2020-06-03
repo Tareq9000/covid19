@@ -7,33 +7,40 @@ import {
 } from "react-router-dom";
 import About from './About.jsx';
 import Summary from './Summary.jsx';
+import { Container, AppBar, IconButton, Toolbar } from '@material-ui/core';
+import styles from '../styles/App.module.css';
 
 export default function App() {
   return (
     <Router>
       <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/summary">Summary</Link>
-            </li>
-            <li>
-              <Link to="/about">About</Link>
-            </li>
-          </ul>
-        </nav>
 
-        <Switch>
-          <Route path="/about">
-            <About />
-          </Route>
-          <Route path="/summary">
-            <Summary />
-          </Route>
-          <Route path="/">
-            <Summary />
-          </Route>
-        </Switch>
+        <AppBar position="static">
+          <Toolbar variant="dense">
+            <IconButton edge="start" aria-label="menu">
+              <Link className={styles.navLink} to="/summary">Summary</Link>
+            </IconButton>
+            
+            <IconButton edge="start" color="inherit" aria-label="menu">
+            <Link className={styles.navLink} to="/about">About</Link>
+            </IconButton>
+          </Toolbar>
+        </AppBar>
+
+
+        <Container>
+          <Switch>
+            <Route path="/about">
+              <About />
+            </Route>
+            <Route path="/summary">
+              <Summary />
+            </Route>
+            <Route path="/">
+              <Summary />
+            </Route>
+          </Switch>
+        </Container>
 
       </div>
     </Router>
