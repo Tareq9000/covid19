@@ -11,6 +11,8 @@ export const fetchAPI=(linkList)=>{
       response.map(elem=>{
         if(elem.status === 200){
           responseArr = responseArr.concat(elem.json())
+        }else{
+          console.log("asdf")
         }
       })
       return Promise.all(responseArr)

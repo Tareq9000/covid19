@@ -1,0 +1,21 @@
+.icon{
+    color: rgb(182, 0, 0);
+    display: inline-block;
+}
+.box{
+    background-color: rgba(255, 0, 0, 0.384);
+    border-radius: 5px;
+    box-shadow: 
+    0 4px 8px 0 rgba(0, 0, 0, 0.2), 
+    0 6px 20px 0 rgba(0, 0, 0, 0.19), 
+    inset 0 6px 20px 0 rgba(56, 56, 56, 0.05);
+    padding: 10px;
+}
+button{
+    display: inline-block;
+    padding: 10px;
+}
+.text{
+    display: inline-block;
+    margin: 10px;
+}

@@ -64,13 +64,22 @@ class Summary extends Component{
 const mapStateToProps = ( state ) => {
     const { global, countries, country } = state.covidReducer
 
-    return {
+    return global ? {
         newConfirmed: global.NewConfirmed,
         totalConfirmed: global.TotalConfirmed,
         newDeaths: global.NewDeaths,
         totalDeaths: global.TotalDeaths,
         newRecovered: global.NewRecovered,
         totalRecovered: global.TotalRecovered,
+        countries: countries,
+        country: country
+    } : {
+        newConfirmed: null,
+        totalConfirmed: null,
+        newDeaths: null,
+        totalDeaths: null,
+        newRecovered: null,
+        totalRecovered: null,
         countries: countries,
         country: country
     }
