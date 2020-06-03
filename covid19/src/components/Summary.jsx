@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { render } from 'react-dom';
 
 import { connect } from 'react-redux';
 import { getGlobalSummary, getAllCountries } from '../reducers/covidReducer.js';
-import { Select, MenuItem, InputLabel, FormControl, Paper, TableContainer, Table, TableHead, TableCell, TableBody, TableRow } from '@material-ui/core';
+import { Select, MenuItem, InputLabel, FormControl, Paper, TableContainer, Table, TableCell, TableBody, TableRow } from '@material-ui/core';
+import styles from '../styles/Summary.module.css';
 
 class Summary extends Component{
 
@@ -34,7 +34,7 @@ class Summary extends Component{
             <div>
                 <FormControl>
                 <InputLabel id="demo-simple-select-helper-label">Country</InputLabel>
-                <Select value={country} onChange={setCountry}>
+                <Select className={styles.selectBox} value={country} onChange={setCountry}>
                     {countries.map(obj => (
                         <MenuItem key={obj.ISO2} value={obj.Country}>{obj.Country}</MenuItem>
                     ))}

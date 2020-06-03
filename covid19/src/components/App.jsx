@@ -7,8 +7,8 @@ import {
 } from "react-router-dom";
 import About from './About.jsx';
 import Summary from './Summary.jsx';
-import { Container, AppBar, IconButton, Typography, Toolbar } from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
+import { Container, AppBar, IconButton, Toolbar } from '@material-ui/core';
+import styles from '../styles/App.module.css';
 
 export default function App() {
   return (
@@ -17,12 +17,12 @@ export default function App() {
 
         <AppBar position="static">
           <Toolbar variant="dense">
-            <IconButton edge="start" color="inherit" aria-label="menu">
-              <Link to="/summary">Summary</Link>
+            <IconButton edge="start" aria-label="menu">
+              <Link className={styles.navLink} to="/summary">Summary</Link>
             </IconButton>
             
             <IconButton edge="start" color="inherit" aria-label="menu">
-            <Link to="/about">About</Link>
+            <Link className={styles.navLink} to="/about">About</Link>
             </IconButton>
           </Toolbar>
         </AppBar>
