@@ -22,7 +22,8 @@ const covidReducer = (state = initialState, action) => {
       case 'SET_COUNTRY':
         return {
           ...state,
-          country: action.payload.country
+          country: action.payload.country,
+          global: action.payload.countryData[0]
         }
     default:
       return state
@@ -35,7 +36,7 @@ export default covidReducer
 export const getGlobalSummary = () => {
   return ( dispatch ) => {
     fetchAPI('https://api.covid19api.com/summary').then(fetchData => {
-
+ 
       dispatch({
         type : 'SET_GLOBAL',
         payload : {
@@ -54,6 +55,23 @@ export const getAllCountries = () => {
         type : 'SET_COUNTRIES',
         payload : {
           countries : fetchData[0]
+        }
+      })
+    })
+  }
+}
+
+export const getSingleCountry = ( countrySlug ) => {
+  return ( dispatch ) => {
+    fetchAPI('https://api.covid19api.com/summary').then(fetchData => {
+
+      dispatch({
+        type : 'SET_COUNTRY',
+        payload : {
+          countryData : fetchData[0].Countries.filter((country) => (
+                          country.Slug == countrySlug
+          )),
+          country: countrySlug
         }
       })
     })
