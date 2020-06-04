@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 
-import { getGlobalSummary, getAllCountries, getSingleCountry } from '../reducers/covidReducer.js';
+import { getGlobalSummary, getAllCountries, getSingleCountry, setSpinner } from '../reducers/covidReducer.js';
 import { Select, MenuItem, InputLabel, FormControl, Paper, TableContainer, Table, TableCell, TableBody, TableRow } from '@material-ui/core';
 import styles from '../styles/Summary.module.css';
 
-class Summary extends Component{
+import { Chart, BarSeries, ArgumentAxis, ValueAxis } from '@devexpress/dx-react-chart-material-ui';
+
+export class Summary extends Component{
 
     componentDidMount(){
         const { setGlobal, setAllCountries } = this.props
@@ -30,7 +32,7 @@ class Summary extends Component{
             this.createRow('new recovered', newRecovered),
             this.createRow('total recovered', totalRecovered)
         ];
-        
+
         return (
             <div>
                 <FormControl>
@@ -41,6 +43,14 @@ class Summary extends Component{
                     ))}
                 </Select>
                 </FormControl>
+                
+                <Paper>
+                    <Chart data={rows}>
+                        <ArgumentAxis />
+                        <ValueAxis max={6} />
+                        <BarSeries valueField="number" argumentField="name"/>
+                    </Chart>
+                </Paper>
 
                 <TableContainer component={Paper}>
                     <Table size="small" aria-label="a dense table">
@@ -78,15 +88,17 @@ const mapStateToProps = ( state ) => {
 const mapDispatchToProps = ( dispatch ) => {
 
     return {
-        setGlobal: () => (
+        setGlobal: () => {
+            dispatch(setSpinner(true))
             dispatch(getGlobalSummary())
-        ),
-        setAllCountries: () => (
+        },
+        setAllCountries: () => {
             dispatch(getAllCountries())
-        ),
-        setCountry: ( event ) => (
+        },
+        setCountry: ( event ) => {
+            dispatch(setSpinner(true))
             dispatch(getSingleCountry(event.target.value))
-        )
+        }
     }
 }
 

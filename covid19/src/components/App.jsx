@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
@@ -9,8 +9,12 @@ import About from './About.jsx';
 import Summary from './Summary.jsx';
 import { Container, AppBar, IconButton, Toolbar } from '@material-ui/core';
 import styles from '../styles/App.module.css';
+import { connect } from 'react-redux';
+import Spinner from 'react-spinner-material';
 
-export default function App() {
+export class App extends Component{
+  render(){
+    const { spinning } = this.props
   return (
     <Router>
       <div>
@@ -40,9 +44,25 @@ export default function App() {
               <Summary />
             </Route>
           </Switch>
+          <div className={styles.spinner_box}>
+          <Spinner
+            size={40} 
+            spinnerColor={"black"} 
+            spinnerWidth={5} 
+            visible={spinning} 
+          />
+        </div>
         </Container>
 
+        
       </div>
     </Router>
-  );
+  )}
 }
+
+const mapStateToProps = ( state ) => {
+  const { spinning } = state.covidReducer
+
+  return { spinning }
+}
+export default connect(mapStateToProps)(App);

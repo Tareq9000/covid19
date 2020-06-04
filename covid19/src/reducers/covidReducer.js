@@ -3,7 +3,8 @@ import { fetchAPI } from '../fetchAPI';
 const initialState = {
   global: {},
   countries: [],
-  country: ""
+  country: "",
+  spinning: false
 }
 
 const covidReducer = (state = initialState, action) => {
@@ -19,12 +20,17 @@ const covidReducer = (state = initialState, action) => {
         ...state,
         countries: action.payload.countries
       }
-      case 'SET_COUNTRY':
-        return {
-          ...state,
-          country: action.payload.country,
-          global: action.payload.countryData[0]
-        }
+    case 'SET_COUNTRY':
+      return {
+        ...state,
+        country: action.payload.country,
+        global: action.payload.countryData[0]
+      }
+    case 'SET_SPINNER':
+      return {
+        ...state,
+        spinning: action.payload.spinning
+      }
     default:
       return state
   }
@@ -32,6 +38,17 @@ const covidReducer = (state = initialState, action) => {
 export default covidReducer
 
 
+export const setSpinner = ( spinning ) => {
+  return ( dispatch ) => {
+    
+    dispatch({
+      type : 'SET_SPINNER',
+      payload : {
+        spinning: spinning
+      }
+    })
+  }
+}
 
 export const getGlobalSummary = () => {
   return ( dispatch ) => {
@@ -44,6 +61,7 @@ export const getGlobalSummary = () => {
         }
       })
     })
+    dispatch(setSpinner(false))
   }
 }
 
@@ -74,6 +92,7 @@ export const getSingleCountry = ( countrySlug ) => {
           country: countrySlug
         }
       })
+      dispatch(setSpinner(false))
     })
   }
 }
