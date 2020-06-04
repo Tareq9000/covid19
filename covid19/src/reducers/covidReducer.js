@@ -4,11 +4,7 @@ const initialState = {
   global: {},
   countries: [],
   country: "",
-  errorMSG: {
-    showError: false,
-    fetchMethod: ()=>{},
-    country: null
-  }
+  showError: false
 }
 
 const covidReducer = (state = initialState, action) => {
@@ -18,41 +14,26 @@ const covidReducer = (state = initialState, action) => {
       return {
         ...state,
         global: action.payload.global,
-        errorMSG:{
-          fetchMethod: state.errorMSG.fetchMethod,
-          country: state.errorMSG.country,
-          showError: false
-        }
+        showError: false
       }
     case 'SET_COUNTRIES':
       return {
         ...state,
         countries: action.payload.countries,
-        errorMSG:{
-          fetchMethod: state.errorMSG.fetchMethod,
-          country: state.errorMSG.country,
-          showError: false
-        }
+        showError: false
       }
       case 'SET_COUNTRY':
         return {
           ...state,
           country: action.payload.country,
           global: action.payload.countryData[0],
-          errorMSG:{
-            fetchMethod: state.errorMSG.fetchMethod,
-            country: state.errorMSG.country,
-            showError: false
-          }
+          showError: false
         }
       case 'SHOW_ERROR':
         return {
           ...state,
-          errorMSG: {
-            showError: true,
-            fetchMethod: action.payload.fetchMethod,
-            country: action.payload.countrySlug ? action.payload.countrySlug : null
-          }
+          showError: true,
+          country: ""
         }
     default:
       return state
@@ -74,11 +55,7 @@ export const getGlobalSummary = () => {
         })
       }else{
         dispatch({
-          type : 'SHOW_ERROR',
-          payload: {
-            fetchMethod: getGlobalSummary,
-            country: null
-          }
+          type : 'SHOW_ERROR'
         })
       }
     })
@@ -97,11 +74,7 @@ export const getAllCountries = () => {
         })
       }else{
         dispatch({
-          type : 'SHOW_ERROR',
-          payload: {
-            fetchMethod: getAllCountries,
-            country: null
-          }
+          type : 'SHOW_ERROR'
         })
       }
     })
@@ -116,18 +89,14 @@ export const getSingleCountry = ( countrySlug ) => {
           type : 'SET_COUNTRY',
           payload : {
             countryData : fetchData[0].Countries.filter((country) => (
-                            country.Slug == countrySlug
+                            country.Slug === countrySlug
             )),
             country: countrySlug
           }
         })
       }else{
         dispatch({
-          type : 'SHOW_ERROR',
-          payload: {
-            fetchMethod: getSingleCountry,
-            country: countrySlug
-          }
+          type : 'SHOW_ERROR'
         })
       }
     })

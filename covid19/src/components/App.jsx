@@ -14,8 +14,8 @@ import ErrorMessage from './ErrorMessage.jsx';
 
 export class App extends Component{
   render(){
-    const { showError, fetchMethod, country } = this.props
-    console.log("showError", showError)
+    const { showError } = this.props
+
     return (
       <Router>
         <div>
@@ -45,7 +45,7 @@ export class App extends Component{
                 <Route path="/">
                   <Summary />
                 </Route>
-              </Switch> : <ErrorMessage tryAgainFunction={fetchMethod} functionParameter={country}/> 
+              </Switch> : <ErrorMessage /> 
             }
           </Container>
 
@@ -55,8 +55,8 @@ export class App extends Component{
   }
 }
 const mapStateToProps = ( state ) => {
-  const { showError, fetchMethod, country } = state.covidReducer.errorMSG
+  const { showError } = state.covidReducer
 
-  return { showError, fetchMethod, country }
+  return { showError }
 }
 export default connect(mapStateToProps)(App)

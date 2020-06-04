@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ErrorIcon from '@material-ui/icons/Error';
 import { connect } from 'react-redux';
 import styles from '../styles/ErrorMessage.module.css';
+import { getGlobalSummary } from '../reducers/covidReducer.js';
 
 export class ErrorMessage extends Component{
 
@@ -19,11 +20,11 @@ export class ErrorMessage extends Component{
     }
   }
 
-  const mapDispatchToProps = ( dispatch, ownProps ) => {
-    console.log(ownProps)
+  const mapDispatchToProps = ( dispatch ) => {
+ 
     return {
         tryAgain: () => (
-            dispatch(ownProps.tryAgainFunction(ownProps.functionParameter))
+            dispatch(getGlobalSummary())
         )
     }
 }

@@ -74,12 +74,12 @@ const mapStateToProps = ( state ) => {
         countries: countries,
         country: country
     } : {
-        newConfirmed: null,
-        totalConfirmed: null,
-        newDeaths: null,
-        totalDeaths: null,
-        newRecovered: null,
-        totalRecovered: null,
+        newConfirmed: 0,
+        totalConfirmed: 0,
+        newDeaths: 0,
+        totalDeaths: 0,
+        newRecovered: 0,
+        totalRecovered: 0,
         countries: countries,
         country: country
     }
