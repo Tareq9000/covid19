@@ -35,37 +35,49 @@ export class Summary extends Component{
 
         return (
             <div>
-                <FormControl>
-                <InputLabel id="demo-simple-select-helper-label">Country</InputLabel>
-                <Select className={styles.selectBox} value={country} onChange={setCountry}>
-                    {countries.map(obj => (
-                        <MenuItem key={obj.ISO2} value={obj.Slug}>{obj.Country}</MenuItem>
-                    ))}
-                </Select>
-                </FormControl>
-                
-                <Paper>
-                    <Chart data={rows}>
-                        <ArgumentAxis />
-                        <ValueAxis max={6} />
-                        <BarSeries valueField="number" argumentField="name"/>
-                    </Chart>
-                </Paper>
 
-                <TableContainer component={Paper}>
-                    <Table size="small" aria-label="a dense table">
-                        <TableBody>
-                            {rows.map((row) => (
-                                <TableRow key={row.name}>
-                                    <TableCell component="th" scope="row">
-                                        {row.name}
-                                    </TableCell>
-                                    <TableCell align="right">{row.number}</TableCell>
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
+                <div id={styles.select_box}>
+                    <FormControl>
+                    <InputLabel id="demo-simple-select-helper-label">Country</InputLabel>
+                    <Select className={styles.selectBox} value={country} onChange={setCountry}>
+                        {countries.map(obj => (
+                            <MenuItem key={obj.ISO2} value={obj.Slug}>{obj.Country}</MenuItem>
+                        ))}
+                    </Select>
+                    </FormControl>
+                </div>
+                
+                <div id={styles.component_box}>
+
+                    <div id={styles.chart_box}>
+                        <Paper>
+                            <Chart data={rows}>
+                                <ArgumentAxis />
+                                <ValueAxis max={6} />
+                                <BarSeries valueField="number" argumentField="name"/>
+                            </Chart>
+                        </Paper>
+                    </div>
+
+                    <div id={styles.table_box}>
+                        <TableContainer component={Paper}>
+                            <Table aria-label="a dense table">
+                                <TableBody>
+                                    {rows.map((row) => (
+                                        <TableRow key={row.name}>
+                                            <TableCell component="th" scope="row">
+                                                {row.name}
+                                            </TableCell>
+                                            <TableCell align="right">{row.number}</TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
+                    </div>
+
+                </div>
+
             </div>
         );
     }

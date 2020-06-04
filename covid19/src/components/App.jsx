@@ -31,29 +31,29 @@ export class App extends Component{
           </Toolbar>
         </AppBar>
 
-
-        <Container>
-          <Switch>
-            <Route path="/about">
-              <About />
-            </Route>
-            <Route path="/summary">
-              <Summary />
-            </Route>
-            <Route path="/">
-              <Summary />
-            </Route>
-          </Switch>
-          <div className={styles.spinner_box}>
-          <Spinner
-            size={40} 
-            spinnerColor={"black"} 
-            spinnerWidth={5} 
-            visible={spinning} 
-          />
+        <div id={styles.app_body}>
+          <Container>
+            <Switch>
+              <Route path="/about">
+                <About />
+              </Route>
+              <Route path="/summary">
+                <Summary />
+              </Route>
+              <Route path="/">
+                <Summary />
+              </Route>
+            </Switch>
+            <div className={styles.spinner_box}>
+            <Spinner
+              size={40} 
+              spinnerColor={"black"} 
+              spinnerWidth={5} 
+              visible={spinning} 
+            />
+          </div>
+          </Container>
         </div>
-        </Container>
-
         
       </div>
     </Router>
