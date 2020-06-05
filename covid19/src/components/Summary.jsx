@@ -2,17 +2,16 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 
-import { getGlobalSummary, getAllCountries, getSingleCountry } from '../reducers/covidReducer.js';
+import { getGlobalAndCountriesData, getAllCountries, getSingleCountry } from '../reducers/covidReducer.js';
 import { Select, MenuItem, InputLabel, FormControl, Paper, TableContainer, Table, TableCell, TableBody, TableRow } from '@material-ui/core';
 import styles from '../styles/Summary.module.css';
 
 class Summary extends Component{
 
     componentDidMount(){
-        const { setGlobal, setAllCountries } = this.props
+        const { getGlobalAndCountriesData } = this.props
         
-        setGlobal();
-        setAllCountries();
+        getGlobalAndCountriesData();
     }
 
     createRow (name, number) {
@@ -20,7 +19,7 @@ class Summary extends Component{
     }
 
     render() {
-        const { newConfirmed, totalConfirmed, newDeaths, totalDeaths, newRecovered, totalRecovered, countries, setCountry, country } = this.props
+        const { newConfirmed, totalConfirmed, newDeaths, totalDeaths, newRecovered, totalRecovered, countries, getCountry, country } = this.props
 
         const rows = [
             this.createRow('new confirmed', newConfirmed),
@@ -30,12 +29,12 @@ class Summary extends Component{
             this.createRow('new recovered', newRecovered),
             this.createRow('total recovered', totalRecovered)
         ];
-        
+ 
         return (
             <div>
                 <FormControl>
                 <InputLabel id="demo-simple-select-helper-label">Country</InputLabel>
-                <Select className={styles.selectBox} value={country} onChange={setCountry}>
+                <Select className={styles.selectBox} value={country} onChange={getCountry}>
                     {countries.map(obj => (
                         <MenuItem key={obj.ISO2} value={obj.Slug}>{obj.Country}</MenuItem>
                     ))}
@@ -87,13 +86,10 @@ const mapStateToProps = ( state ) => {
 const mapDispatchToProps = ( dispatch ) => {
 
     return {
-        setGlobal: () => (
-            dispatch(getGlobalSummary())
+        getGlobalAndCountriesData: () => (
+            dispatch(getGlobalAndCountriesData())
         ),
-        setAllCountries: () => (
-            dispatch(getAllCountries())
-        ),
-        setCountry: ( event ) => (
+        getCountry: ( event ) => (
             dispatch(getSingleCountry(event.target.value))
         )
     }
