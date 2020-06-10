@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 
-import { getGlobalSummary, getAllCountries, getSingleCountry, setSpinner } from '../reducers/covidReducer.js';
+import { getSingleCountry, setSpinner, getGlobalAndCountriesData } from '../reducers/covidReducer.js';
 
 import { Select, MenuItem, InputLabel, FormControl, Paper, TableContainer, Table, TableCell, TableBody, TableRow } from '@material-ui/core';
 import styles from '../styles/Summary.module.css';
