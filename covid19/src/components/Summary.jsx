@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { getGlobalSummary, getAllCountries, getSingleCountry, setSpinner } from '../reducers/covidReducer.js';
+
 import { Select, MenuItem, InputLabel, FormControl, Paper, TableContainer, Table, TableCell, TableBody, TableRow } from '@material-ui/core';
 import styles from '../styles/Summary.module.css';
 
@@ -11,10 +12,9 @@ import { Chart, BarSeries, ArgumentAxis, ValueAxis } from '@devexpress/dx-react-
 export class Summary extends Component{
 
     componentDidMount(){
-        const { setGlobal, setAllCountries } = this.props
+        const { getGlobalAndCountriesData } = this.props
         
-        setGlobal();
-        setAllCountries();
+        getGlobalAndCountriesData();
     }
 
     createRow (name, number) {
@@ -22,7 +22,7 @@ export class Summary extends Component{
     }
 
     render() {
-        const { newConfirmed, totalConfirmed, newDeaths, totalDeaths, newRecovered, totalRecovered, countries, setCountry, country } = this.props
+        const { newConfirmed, totalConfirmed, newDeaths, totalDeaths, newRecovered, totalRecovered, countries, getCountry, country } = this.props
 
         const rows = [
             this.createRow('new confirmed', newConfirmed),
@@ -39,7 +39,7 @@ export class Summary extends Component{
                 <div id={styles.select_box}>
                     <FormControl>
                     <InputLabel id="demo-simple-select-helper-label">Country</InputLabel>
-                    <Select className={styles.selectBox} value={country} onChange={setCountry}>
+                    <Select className={styles.selectBox} value={country} onChange={getCountry}>
                         {countries.map(obj => (
                             <MenuItem key={obj.ISO2} value={obj.Slug}>{obj.Country}</MenuItem>
                         ))}
@@ -75,7 +75,6 @@ export class Summary extends Component{
                             </Table>
                         </TableContainer>
                     </div>
-
                 </div>
 
             </div>
@@ -86,7 +85,7 @@ export class Summary extends Component{
 const mapStateToProps = ( state ) => {
     const { global, countries, country } = state.covidReducer
 
-    return {
+    return global ? {
         newConfirmed: global.NewConfirmed,
         totalConfirmed: global.TotalConfirmed,
         newDeaths: global.NewDeaths,
@@ -95,22 +94,28 @@ const mapStateToProps = ( state ) => {
         totalRecovered: global.TotalRecovered,
         countries: countries,
         country: country
+    } : {
+        newConfirmed: 0,
+        totalConfirmed: 0,
+        newDeaths: 0,
+        totalDeaths: 0,
+        newRecovered: 0,
+        totalRecovered: 0,
+        countries: countries,
+        country: country
     }
 }
 const mapDispatchToProps = ( dispatch ) => {
 
     return {
-        setGlobal: () => {
-            dispatch(setSpinner(true))
-            dispatch(getGlobalSummary())
-        },
-        setAllCountries: () => {
-            dispatch(getAllCountries())
-        },
-        setCountry: ( event ) => {
-            dispatch(setSpinner(true))
+        getGlobalAndCountriesData: () => (
+            dispatch(setSpinner(true)),
+            dispatch(getGlobalAndCountriesData())
+        ),
+        getCountry: ( event ) => (
+            dispatch(setSpinner(true)),
             dispatch(getSingleCountry(event.target.value))
-        }
+        )
     }
 }
 
