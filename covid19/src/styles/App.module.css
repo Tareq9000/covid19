@@ -2,3 +2,11 @@
     color: white;
     text-decoration: none;
 }
+.spinner_box{
+    position: fixed;
+    top: 48%;
+    left: 48%;
+}
+#app_body{
+    padding: 50px;
+}

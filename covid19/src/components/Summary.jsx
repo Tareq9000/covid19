@@ -2,11 +2,14 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 
-import { getGlobalAndCountriesData, getAllCountries, getSingleCountry } from '../reducers/covidReducer.js';
+import { getSingleCountry, setSpinner, getGlobalAndCountriesData } from '../reducers/covidReducer.js';
+
 import { Select, MenuItem, InputLabel, FormControl, Paper, TableContainer, Table, TableCell, TableBody, TableRow } from '@material-ui/core';
 import styles from '../styles/Summary.module.css';
 
-class Summary extends Component{
+import { Chart, BarSeries, ArgumentAxis, ValueAxis } from '@devexpress/dx-react-chart-material-ui';
+
+export class Summary extends Component{
 
     componentDidMount(){
         const { getGlobalAndCountriesData } = this.props
@@ -29,32 +32,51 @@ class Summary extends Component{
             this.createRow('new recovered', newRecovered),
             this.createRow('total recovered', totalRecovered)
         ];
- 
+
         return (
             <div>
-                <FormControl>
-                <InputLabel id="demo-simple-select-helper-label">Country</InputLabel>
-                <Select className={styles.selectBox} value={country} onChange={getCountry}>
-                    {countries.map(obj => (
-                        <MenuItem key={obj.ISO2} value={obj.Slug}>{obj.Country}</MenuItem>
-                    ))}
-                </Select>
-                </FormControl>
 
-                <TableContainer component={Paper}>
-                    <Table size="small" aria-label="a dense table">
-                        <TableBody>
-                            {rows.map((row) => (
-                                <TableRow key={row.name}>
-                                    <TableCell component="th" scope="row">
-                                        {row.name}
-                                    </TableCell>
-                                    <TableCell align="right">{row.number}</TableCell>
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
+                <div id={styles.select_box}>
+                    <FormControl>
+                    <InputLabel id="demo-simple-select-helper-label">Country</InputLabel>
+                    <Select className={styles.selectBox} value={country} onChange={getCountry}>
+                        {countries.map(obj => (
+                            <MenuItem key={obj.ISO2} value={obj.Slug}>{obj.Country}</MenuItem>
+                        ))}
+                    </Select>
+                    </FormControl>
+                </div>
+                
+                <div id={styles.component_box}>
+
+                    <div id={styles.chart_box}>
+                        <Paper>
+                            <Chart data={rows}>
+                                <ArgumentAxis />
+                                <ValueAxis max={6} />
+                                <BarSeries valueField="number" argumentField="name"/>
+                            </Chart>
+                        </Paper>
+                    </div>
+
+                    <div id={styles.table_box}>
+                        <TableContainer component={Paper}>
+                            <Table aria-label="a dense table">
+                                <TableBody>
+                                    {rows.map((row) => (
+                                        <TableRow key={row.name}>
+                                            <TableCell component="th" scope="row">
+                                                {row.name}
+                                            </TableCell>
+                                            <TableCell align="right">{row.number}</TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
+                    </div>
+                </div>
+
             </div>
         );
     }
@@ -87,9 +109,11 @@ const mapDispatchToProps = ( dispatch ) => {
 
     return {
         getGlobalAndCountriesData: () => (
+            dispatch(setSpinner(true)),
             dispatch(getGlobalAndCountriesData())
         ),
         getCountry: ( event ) => (
+            dispatch(setSpinner(true)),
             dispatch(getSingleCountry(event.target.value))
         )
     }

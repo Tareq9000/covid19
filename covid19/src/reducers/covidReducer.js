@@ -4,6 +4,7 @@ const initialState = {
   global: {},
   countries: [],
   country: "",
+  spinning: false,
   showError: false
 }
 
@@ -16,6 +17,11 @@ const covidReducer = (state = initialState, action) => {
         global: action.payload.global,
         countries: action.payload.countries,
         showError: false
+      }
+    case 'SET_SPINNER':
+      return {
+        ...state,
+        spinning: action.payload.spinning
       }
       case 'SET_COUNTRY':
         return {
@@ -39,10 +45,22 @@ const covidReducer = (state = initialState, action) => {
 export default covidReducer
 
 
+export const setSpinner = ( spinning ) => {
+  return ( dispatch ) => {
+    
+    dispatch({
+      type : 'SET_SPINNER',
+      payload : {
+        spinning: spinning
+      }
+    })
+  }
+}
 
 export const getGlobalAndCountriesData = () => {
   return ( dispatch ) => {
     fetchAPI('https://api.covid19api.com/summary').then(fetchData => {
+
       if(fetchData[0]){
         dispatch({
           type : 'SET_GLOBAL_COUNTRY_DATA',
@@ -57,17 +75,19 @@ export const getGlobalAndCountriesData = () => {
         })
       }
     })
+    dispatch(setSpinner(false))
   }
 }
 
 export const getSingleCountry = ( countrySlug ) => {
   return ( dispatch ) => {
+      
     dispatch({
       type : 'SET_COUNTRY',
       payload : {
         country: countrySlug
       }
     })
-
+    dispatch(setSpinner(false))
   }
 }

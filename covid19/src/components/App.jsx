@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -10,16 +10,18 @@ import About from './About.jsx';
 import Summary from './Summary.jsx';
 import { Container, AppBar, IconButton, Toolbar } from '@material-ui/core';
 import styles from '../styles/App.module.css';
+
+import { connect } from 'react-redux';
+import Spinner from 'react-spinner-material';
 import ErrorMessage from './ErrorMessage.jsx';
 
 export class App extends Component{
   render(){
-    const { showError } = this.props
+    const { showError, spinning } = this.props
 
     return (
       <Router>
         <div>
-
           <AppBar position="static">
             <Toolbar variant="dense">
               <IconButton edge="start" aria-label="menu">
@@ -32,31 +34,39 @@ export class App extends Component{
             </Toolbar>
           </AppBar>
 
-
-          <Container>
-            { 
-              !showError ? <Switch>
-                <Route path="/about">
-                  <About />
-                </Route>
-                <Route path="/summary">
-                  <Summary />
-                </Route>
-                <Route path="/">
-                  <Summary />
-                </Route>
-              </Switch> : <ErrorMessage /> 
-            }
-          </Container>
-
+          <div id={styles.app_body}>
+            <Container>
+              { 
+                !showError ? <Switch>
+                  <Route path="/about">
+                    <About />
+                  </Route>
+                  <Route path="/summary">
+                    <Summary />
+                  </Route>
+                  <Route path="/">
+                    <Summary />
+                  </Route>
+                </Switch> : <ErrorMessage /> 
+              }
+              <div className={styles.spinner_box}>
+                <Spinner
+                  size={40} 
+                  spinnerColor={"black"} 
+                  spinnerWidth={5} 
+                  visible={spinning} 
+                />
+              </div>
+            </Container>
+           </div>
         </div>
       </Router>
     )
   }
 }
 const mapStateToProps = ( state ) => {
-  const { showError } = state.covidReducer
+  const { showError, spinning } = state.covidReducer
 
-  return { showError }
+  return { showError, spinning }
 }
 export default connect(mapStateToProps)(App)

@@ -1,6 +1,6 @@
 
 // This method fetches data from one ore more api's
-// fetchAPI('https://...').then(data => {    })
+// fetchAPI('https://...').then(data =>u {    })
 export const fetchAPI=(linkList)=>{
     if(typeof linkList == "string"){
       linkList = [linkList]
