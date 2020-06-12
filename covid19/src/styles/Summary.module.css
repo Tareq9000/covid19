@@ -8,6 +8,7 @@
 #chart_box{
     min-width: 700px;
     margin: 5px;
+    height: 700px;
 }
 #table_box{
     min-width: 400px;
@@ -16,4 +17,10 @@
 #component_box{
     display: flex;
     flex-wrap: wrap;
+}
+.table_head{
+    font-weight: bold;
+}
+.table2_box{
+    margin-top: 17px;
 }
