@@ -15,7 +15,16 @@ const covidReducer = (state = initialState, action) => {
       return {
         ...state,
         global: action.payload.global,
-        countries: action.payload.countries,
+        countries: [  
+                    {
+                      Country: "All Countries",
+                      CountryCode: "ac",
+                      Slug: "all countries",
+                      ...action.payload.global
+                    },
+                      ...action.payload.countries 
+                   ],
+        country: "all countries",
         showError: false
       }
     case 'SET_SPINNER':
@@ -62,6 +71,8 @@ export const getGlobalAndCountriesData = () => {
     fetchAPI('https://api.covid19api.com/summary').then(fetchData => {
 
       if(fetchData[0]){
+        console.log(fetchData[0].Global, "GLOBAL")
+        console.log(fetchData[0].Countries, "COUNTRYS")
         dispatch({
           type : 'SET_GLOBAL_COUNTRY_DATA',
           payload : {
