@@ -91,3 +91,28 @@ export const getSingleCountry = ( countrySlug ) => {
     dispatch(setSpinner(false))
   }
 }
+
+export const getCountryDateData = ( countrySlug ) => {
+  return ( dispatch ) => {
+    fetchAPI('https://api.covid19api.com/country/'+countrySlug+'?from=2020-03-01T00:00:00Z&to=2020-04-01T00:00:00Z').then(fetchData => {
+
+      if(fetchData[0]){
+        /*
+        dispatch({
+          type : 'SET_COUNTRY_DATE_DATA',
+          payload : {
+            global : fetchData[0].Global,
+            countries: fetchData[0].Countries
+          }
+        })
+        */
+       console.log(fetchData[0])
+      }else{
+        dispatch({
+          type : 'SHOW_ERROR'
+        })
+      }
+    })
+    dispatch(setSpinner(false))
+  }
+}

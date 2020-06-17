@@ -9,6 +9,8 @@ import styles from '../styles/Summary.module.css';
 
 import { Chart, BarSeries, ArgumentAxis, ValueAxis } from '@devexpress/dx-react-chart-material-ui';
 
+import DateSummary from './DateSummary.jsx'
+
 export class Summary extends Component{
 
     componentDidMount(){
@@ -76,7 +78,7 @@ export class Summary extends Component{
                         </TableContainer>
                     </div>
                 </div>
-
+                <DateSummary />
             </div>
         );
     }
