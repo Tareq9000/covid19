@@ -5,17 +5,47 @@ const initialState = {
   countries: [],
   country: "",
   spinning: false,
-  showError: false
+  showError: false,
+  topData: {
+    confirmed: {},
+    deaths: {},
+    recovered: {}
+  }
 }
 
 const covidReducer = (state = initialState, action) => {
 
   switch(action.type){
     case 'SET_GLOBAL_COUNTRY_DATA':
+      const totalNumbers = {
+        totalConfirmed: action.payload.countries.map(country => country.TotalConfirmed),
+        totalDeaths: action.payload.countries.map(country => country.TotalDeaths),
+        totalRecovered: action.payload.countries.map(country => country.TotalRecovered)
+      }
       return {
         ...state,
         global: action.payload.global,
-        countries: action.payload.countries,
+        countries: [  
+                    {
+                      Country: "All Countries",
+                      CountryCode: "ac",
+                      Slug: "all countries",
+                      ...action.payload.global
+                    },
+                      ...action.payload.countries 
+                   ],
+        country: "all countries",
+        topData: {
+          confirmed:  action.payload.countries.filter((country) => (
+                        country.TotalConfirmed === Math.max(...totalNumbers.totalConfirmed)
+                      ))[0],
+          deaths:      action.payload.countries.filter((country) => (
+                        country.TotalDeaths === Math.max(...totalNumbers.totalDeaths)
+                      ))[0],
+          recovered:  action.payload.countries.filter((country) => (
+                        country.TotalRecovered === Math.max(...totalNumbers.totalRecovered)
+                      ))[0]
+        },
         showError: false
       }
     case 'SET_SPINNER':

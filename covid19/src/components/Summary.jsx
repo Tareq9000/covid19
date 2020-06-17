@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { getSingleCountry, setSpinner, getGlobalAndCountriesData } from '../reducers/covidReducer.js';
 
-import { Select, MenuItem, InputLabel, FormControl, Paper, TableContainer, Table, TableCell, TableBody, TableRow } from '@material-ui/core';
+import { Select, MenuItem, InputLabel, FormControl, Paper, TableContainer, Table, TableCell, TableBody, TableHead, TableRow } from '@material-ui/core';
 import styles from '../styles/Summary.module.css';
 
 import { Chart, BarSeries, ArgumentAxis, ValueAxis } from '@devexpress/dx-react-chart-material-ui';
@@ -22,7 +22,18 @@ export class Summary extends Component{
     }
 
     render() {
-        const { newConfirmed, totalConfirmed, newDeaths, totalDeaths, newRecovered, totalRecovered, countries, getCountry, country } = this.props
+        const { newConfirmed, 
+                totalConfirmed, 
+                newDeaths, 
+                totalDeaths, 
+                newRecovered, 
+                totalRecovered, 
+                countries, 
+                getCountry, 
+                country,
+                topConfirmed,
+                topDeaths,
+                topRecovered } = this.props
 
         const rows = [
             this.createRow('new confirmed', newConfirmed),
@@ -32,6 +43,8 @@ export class Summary extends Component{
             this.createRow('new recovered', newRecovered),
             this.createRow('total recovered', totalRecovered)
         ];
+
+        let isAllCountries = (country === "all countries") ? true : false;
 
         return (
             <div>
@@ -50,8 +63,8 @@ export class Summary extends Component{
                 <div id={styles.component_box}>
 
                     <div id={styles.chart_box}>
-                        <Paper>
-                            <Chart data={rows}>
+                        <Paper elevation={2}>
+                            <Chart data={rows} height="550">
                                 <ArgumentAxis />
                                 <ValueAxis max={6} />
                                 <BarSeries valueField="number" argumentField="name"/>
@@ -60,6 +73,7 @@ export class Summary extends Component{
                     </div>
 
                     <div id={styles.table_box}>
+
                         <TableContainer component={Paper}>
                             <Table aria-label="a dense table">
                                 <TableBody>
@@ -74,7 +88,41 @@ export class Summary extends Component{
                                 </TableBody>
                             </Table>
                         </TableContainer>
-                    </div>
+                    
+                    
+                        { isAllCountries ? <div className={styles.table2_box}>
+                            <TableContainer component={Paper}>
+                                <Table aria-label="a dense table">
+                                    <TableHead >
+                                        <TableRow>
+                                            <TableCell align="center"><span className={styles.table_head}>top data</span></TableCell>
+                                            <TableCell align="center"><span className={styles.table_head}>country</span></TableCell>
+                                            <TableCell align="center"><span className={styles.table_head}>number</span></TableCell>
+                                        </TableRow>
+                                    </TableHead>
+                                    <TableBody>
+                                        <TableRow key="topConfirmed">
+                                            <TableCell align="left">confirmed</TableCell>
+                                            <TableCell>{topConfirmed.Country}</TableCell>
+                                            <TableCell align="right">{topConfirmed.TotalConfirmed}</TableCell>
+                                        </TableRow>
+                                        <TableRow key="topDeaths">
+                                            <TableCell align="left">deaths</TableCell>
+                                            <TableCell>{topDeaths.Country}</TableCell>
+                                            <TableCell align="right">{topDeaths.TotalDeaths}</TableCell>
+                                        </TableRow>
+                                        <TableRow key="topRecovered">
+                                            <TableCell align="left">recovered</TableCell>
+                                            <TableCell>{topRecovered.Country}</TableCell>
+                                            <TableCell align="right">{topRecovered.TotalRecovered}</TableCell>
+                                        </TableRow>
+                                    </TableBody>
+                                </Table>
+                            </TableContainer>
+                        </div> : null }
+
+                     </div>
+
                 </div>
 
             </div>
@@ -83,7 +131,7 @@ export class Summary extends Component{
 }
 
 const mapStateToProps = ( state ) => {
-    const { global, countries, country } = state.covidReducer
+    const { global, countries, country, topData } = state.covidReducer
 
     return global ? {
         newConfirmed: global.NewConfirmed,
@@ -93,7 +141,10 @@ const mapStateToProps = ( state ) => {
         newRecovered: global.NewRecovered,
         totalRecovered: global.TotalRecovered,
         countries: countries,
-        country: country
+        country: country,
+        topConfirmed: topData.confirmed,
+        topDeaths: topData.deaths,
+        topRecovered: topData.recovered
     } : {
         newConfirmed: 0,
         totalConfirmed: 0,
@@ -102,7 +153,10 @@ const mapStateToProps = ( state ) => {
         newRecovered: 0,
         totalRecovered: 0,
         countries: countries,
-        country: country
+        country: country,
+        topConfirmed: {},
+        topDeaths: {},
+        topRecovered: {}
     }
 }
 const mapDispatchToProps = ( dispatch ) => {
