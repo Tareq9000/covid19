@@ -126,7 +126,7 @@ export class Summary extends Component{
                      </div>
 
                 </div>
-                <DateSummary />
+                { !isAllCountries ? <DateSummary /> : null }
             </div>
         );
     }

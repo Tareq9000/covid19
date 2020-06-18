@@ -1,0 +1,9 @@
+#select_box{
+    margin-bottom: 30px;
+    text-align: center;
+}
+.date_picker{
+    margin-right: 28px;
+    margin-left: 28px;
+    display: inline;
+}
