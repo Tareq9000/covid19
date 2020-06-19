@@ -9,6 +9,12 @@
         "plugin:react/recommended"
 
     ],
+    "env": {
+        "browser": true,
+        "node": true,
+        "jest": true,
+        "es6": true
+    },
     "rules": {
         "comma-dangle": ["error", "always-multiline"],
         "quotes": ["error", "single", { "avoidEscape": true }],
