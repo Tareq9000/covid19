@@ -13,7 +13,6 @@ export class Summary extends Component{
 
     componentDidMount(){
         const { getGlobalAndCountriesData } = this.props
-        
         getGlobalAndCountriesData();
     }
 

@@ -7,7 +7,7 @@ import App from './components/App.jsx'
 import covidReducer from './reducers/covidReducer.js'
 const store = createStore(combineReducers({covidReducer: covidReducer}), applyMiddleware(thunk))
 
-const rendering = () => {
+const rendering = () => { 
   ReactDOM.render(
     <Provider store={store}>
       <div>
