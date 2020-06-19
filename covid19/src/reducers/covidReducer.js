@@ -13,7 +13,7 @@ const initialState = {
   }
 }
 
-const covidReducer = (state = initialState, action) => {
+export const covidReducer = (state = initialState, action) => {
 
   switch(action.type){
     case 'SET_GLOBAL_COUNTRY_DATA':
