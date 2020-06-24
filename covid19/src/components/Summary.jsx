@@ -40,10 +40,10 @@ export class Summary extends Component{
             this.createRow('new deaths', newDeaths),
             this.createRow('total deaths', totalDeaths),
             this.createRow('new recovered', newRecovered),
-            this.createRow('total recovered', totalRecovered)
+            this.createRow('total recovered', totalRecovered),
         ];
 
-        let isAllCountries = (country === "all countries") ? true : false;
+        let isAllCountries = (country === 'all countries') ? true : false;
 
         return (
             <div>
@@ -66,7 +66,7 @@ export class Summary extends Component{
                             <Chart data={rows} height="550">
                                 <ArgumentAxis />
                                 <ValueAxis max={6} />
-                                <BarSeries valueField="number" argumentField="name"/>
+                                <BarSeries valueField="number" argumentField="name" />
                             </Chart>
                         </Paper>
                     </div>
@@ -143,7 +143,7 @@ const mapStateToProps = ( state ) => {
         country: country,
         topConfirmed: topData.confirmed,
         topDeaths: topData.deaths,
-        topRecovered: topData.recovered
+        topRecovered: topData.recovered,
     } : {
         newConfirmed: 0,
         totalConfirmed: 0,
@@ -155,7 +155,7 @@ const mapStateToProps = ( state ) => {
         country: country,
         topConfirmed: {},
         topDeaths: {},
-        topRecovered: {}
+        topRecovered: {},
     }
 }
 const mapDispatchToProps = ( dispatch ) => {
@@ -168,7 +168,7 @@ const mapDispatchToProps = ( dispatch ) => {
         getCountry: ( event ) => (
             dispatch(setSpinner(true)),
             dispatch(getSingleCountry(event.target.value))
-        )
+        ),
     }
 }
 
