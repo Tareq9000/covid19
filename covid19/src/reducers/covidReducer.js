@@ -11,7 +11,8 @@ const initialState = {
     deaths: {},
     recovered: {}
   },
-  dateData: null
+  dateData: null,
+  dateAlert: false,
 }
 
 const covidReducer = (state = initialState, action) => {
@@ -82,6 +83,11 @@ const covidReducer = (state = initialState, action) => {
             }
           })
         }
+        case 'SET_DATE_ALERT':
+          return {
+            ...state,
+            dateAlert: action.payload.dateAlert
+          }
     default:
       return state
   }
@@ -96,6 +102,18 @@ export const setSpinner = ( spinning ) => {
       type : 'SET_SPINNER',
       payload : {
         spinning: spinning
+      }
+    })
+  }
+}
+
+export const setDateAlert = ( dateAlert ) => {
+  return ( dispatch ) => {
+    
+    dispatch({
+      type : 'SET_DATE_ALERT',
+      payload : {
+        dateAlert: dateAlert
       }
     })
   }
@@ -139,6 +157,7 @@ export const getSingleCountry = ( countrySlug ) => {
 export const getCountryDateData = ( countrySlug, startDate, endDate ) => {
   return ( dispatch ) => {
     fetchAPI('https://api.covid19api.com/country/'+countrySlug+'?from='+startDate+'T00:00:00Z&to='+endDate+'T00:00:00Z').then(fetchData => {
+      console.log(fetchData[0])
       if(fetchData[0]){
         dispatch({
           type : 'SET_COUNTRY_DATE_DATA',

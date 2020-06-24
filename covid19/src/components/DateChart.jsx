@@ -26,7 +26,7 @@ export class DateChart extends Component {
                     <Chart
                     data={dateData}
                     >
-                    <ArgumentAxis max={5}/>
+                    <ArgumentAxis max={5} />
                     <ValueAxis />
                     <LineSeries
                         name="Confirmed"
