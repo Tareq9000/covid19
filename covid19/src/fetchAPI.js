@@ -1,5 +1,5 @@
 export const fetchAPI=(linkList)=>{
-    if(typeof linkList == "string"){
+    if(typeof linkList == 'string'){
       linkList = [linkList]
     }
     const fetchList = linkList.map(elem => fetch(elem))
