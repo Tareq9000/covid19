@@ -20,15 +20,17 @@ export class DateSummary extends Component {
     }
     componentDidUpdate=()=>{
         const {startDate, endDate} = this.state
+        const {country, getCountryDateData, setDateAlert} = this.props
 
         if(startDate != '' && endDate != ''){
 
             if(startDate >= endDate){
-                setDateAlert( true )
+
+                setDateAlert(true)
 
             }else {
-                const {country, getCountryDateData, setDateAlert} = this.props
-                setDateAlert( false )
+                setDateAlert(false)
+
                 getCountryDateData(country, startDate, endDate)
             }
         }
@@ -37,7 +39,9 @@ export class DateSummary extends Component {
         this.setState({startDate: event.target.value})
     }
     endDateHandler=(event)=>{
-        const today = new Date().toISOString().split('T')[0]
+        let today = new Date()
+        today.setDate(today.getDate()-1)
+        today = today.toISOString().split('T')[0]
 
         today < event.target.value ? 
         this.setState({endDate: today}) :
@@ -82,7 +86,8 @@ export class DateSummary extends Component {
                 }
 
             </div>
-    )}
+        )
+    }
 }
 
 const mapStateToProps = ( state ) => {
@@ -103,7 +108,7 @@ const mapDispatchToProps = ( dispatch ) => {
         ),
         setDateAlert: ( bool ) => (
             dispatch(setDateAlert(bool))
-        )
+        ),
     }
 }
 

@@ -3,40 +3,40 @@ import { fetchAPI } from '../fetchAPI';
 const initialState = {
   global: {},
   countries: [],
-  country: "",
+  country: '',
   spinning: false,
   showError: false,
   topData: {
     confirmed: {},
     deaths: {},
-    recovered: {}
+    recovered: {},
   },
   dateData: null,
   dateAlert: false,
 }
 
-const covidReducer = (state = initialState, action) => {
-
+export const covidReducer = (state = initialState, action) => {
+  let totalNumbers = {}
   switch(action.type){
     case 'SET_GLOBAL_COUNTRY_DATA':
-      const totalNumbers = {
+      totalNumbers = {
         totalConfirmed: action.payload.countries.map(country => country.TotalConfirmed),
         totalDeaths: action.payload.countries.map(country => country.TotalDeaths),
-        totalRecovered: action.payload.countries.map(country => country.TotalRecovered)
+        totalRecovered: action.payload.countries.map(country => country.TotalRecovered),
       }
       return {
         ...state,
         global: action.payload.global,
         countries: [  
                     {
-                      Country: "All Countries",
-                      CountryCode: "ac",
-                      Slug: "all countries",
-                      ...action.payload.global
+                      Country: 'All Countries',
+                      CountryCode: 'ac',
+                      Slug: 'all countries',
+                      ...action.payload.global,
                     },
-                      ...action.payload.countries 
+                      ...action.payload.countries,
                    ],
-        country: "all countries",
+        country: 'all countries',
         topData: {
           confirmed:  action.payload.countries.filter((country) => (
                         country.TotalConfirmed === Math.max(...totalNumbers.totalConfirmed)
@@ -46,14 +46,14 @@ const covidReducer = (state = initialState, action) => {
                       ))[0],
           recovered:  action.payload.countries.filter((country) => (
                         country.TotalRecovered === Math.max(...totalNumbers.totalRecovered)
-                      ))[0]
+                      ))[0],
         },
-        showError: false
+        showError: false,
       }
     case 'SET_SPINNER':
       return {
         ...state,
-        spinning: action.payload.spinning
+        spinning: action.payload.spinning,
       }
       case 'SET_COUNTRY':
         return {
@@ -62,13 +62,13 @@ const covidReducer = (state = initialState, action) => {
           global: state.countries.filter((country) => (
                     country.Slug === action.payload.country
                   ))[0],
-          showError: false
+          showError: false,
         }
       case 'SHOW_ERROR':
         return {
           ...state,
           showError: true,
-          country: ""
+          country: '',
         }
       case 'SET_COUNTRY_DATE_DATA':
         return {
@@ -77,16 +77,16 @@ const covidReducer = (state = initialState, action) => {
             const d = new Date(obj.Date);
             return {
               Deaths: obj.Deaths, 
-              Date: d.getDate()+'.'+d.getMonth()+'.'+d.getFullYear(), 
+              Date: d.getDate()+'.'+(d.getMonth()+1)+'.'+d.getFullYear(), 
               Recovered: obj.Recovered, 
-              Confirmed: obj.Confirmed
+              Confirmed: obj.Confirmed,
             }
-          })
+          }),
         }
         case 'SET_DATE_ALERT':
           return {
             ...state,
-            dateAlert: action.payload.dateAlert
+            dateAlert: action.payload.dateAlert,
           }
     default:
       return state
@@ -101,8 +101,8 @@ export const setSpinner = ( spinning ) => {
     dispatch({
       type : 'SET_SPINNER',
       payload : {
-        spinning: spinning
-      }
+        spinning: spinning,
+      },
     })
   }
 }
@@ -113,8 +113,8 @@ export const setDateAlert = ( dateAlert ) => {
     dispatch({
       type : 'SET_DATE_ALERT',
       payload : {
-        dateAlert: dateAlert
-      }
+        dateAlert: dateAlert,
+      },
     })
   }
 }
@@ -128,12 +128,12 @@ export const getGlobalAndCountriesData = () => {
           type : 'SET_GLOBAL_COUNTRY_DATA',
           payload : {
             global : fetchData[0].Global,
-            countries: fetchData[0].Countries
-          }
+            countries: fetchData[0].Countries,
+          },
         })
       }else{
         dispatch({
-          type : 'SHOW_ERROR'
+          type : 'SHOW_ERROR',
         })
       }
     })
@@ -147,8 +147,8 @@ export const getSingleCountry = ( countrySlug ) => {
     dispatch({
       type : 'SET_COUNTRY',
       payload : {
-        country: countrySlug
-      }
+        country: countrySlug,
+      },
     })
     dispatch(setSpinner(false))
   }
@@ -157,17 +157,17 @@ export const getSingleCountry = ( countrySlug ) => {
 export const getCountryDateData = ( countrySlug, startDate, endDate ) => {
   return ( dispatch ) => {
     fetchAPI('https://api.covid19api.com/country/'+countrySlug+'?from='+startDate+'T00:00:00Z&to='+endDate+'T00:00:00Z').then(fetchData => {
-      console.log(fetchData[0])
+ 
       if(fetchData[0]){
         dispatch({
           type : 'SET_COUNTRY_DATE_DATA',
           payload : {
-            dateData: fetchData[0]
-          }
+            dateData: fetchData[0],
+          },
         })
       }else{
         dispatch({
-          type : 'SHOW_ERROR'
+          type : 'SHOW_ERROR',
         })
       }
     })

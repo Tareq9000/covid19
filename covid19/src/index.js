@@ -13,7 +13,7 @@ const store = createStore(
   composeEnhancer(applyMiddleware(thunk)), 
 )
 
-const rendering = () => {
+const rendering = () => { 
   ReactDOM.render(
     <Provider store={store}>
       <div>
