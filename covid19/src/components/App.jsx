@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-
+import PropTypes from 'prop-types';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
-} from "react-router-dom";
+  Link,
+} from 'react-router-dom';
 import About from './About.jsx';
 import Summary from './Summary.jsx';
 import { Container, AppBar, IconButton, Toolbar } from '@material-ui/core';
@@ -52,7 +52,7 @@ export class App extends Component{
               <div className={styles.spinner_box}>
                 <Spinner
                   size={40} 
-                  spinnerColor={"black"} 
+                  spinnerColor={'black'} 
                   spinnerWidth={5} 
                   visible={spinning} 
                 />
@@ -64,6 +64,11 @@ export class App extends Component{
     )
   }
 }
+App.propTypes = {
+  showError: PropTypes.func,
+  spinning: PropTypes.bool,
+}
+
 const mapStateToProps = ( state ) => {
   const { showError, spinning } = state.covidReducer
 

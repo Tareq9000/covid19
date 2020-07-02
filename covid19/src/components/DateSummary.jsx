@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import TextField from '@material-ui/core/TextField';
+import PropTypes from 'prop-types';
 
 import { getCountryDateData, setSpinner, setDateAlert } from '../reducers/covidReducer.js';
 import DateChart from './DateChart.jsx';
@@ -88,6 +89,12 @@ export class DateSummary extends Component {
             </div>
         )
     }
+}
+DateSummary.propTypes = {
+    country: PropTypes.string, 
+    getCountryDateData: PropTypes.func, 
+    setDat: PropTypes.func, 
+    dateAlert: PropTypes.bool,
 }
 
 const mapStateToProps = ( state ) => {

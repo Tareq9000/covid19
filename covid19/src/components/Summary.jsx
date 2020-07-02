@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { getSingleCountry, setSpinner, getGlobalAndCountriesData } from '../reducers/covidReducer.js';
@@ -129,6 +129,21 @@ export class Summary extends Component{
             </div>
         );
     }
+}
+DateSummary.propTypes = {
+    newConfirmed: PropTypes.number, 
+    totalConfirmed: PropTypes.number, 
+    newDeaths: PropTypes.number, 
+    totalDeaths: PropTypes.number, 
+    newRecovered: PropTypes.number, 
+    totalRecovered: PropTypes.number, 
+    countries: PropTypes.array, 
+    getCountry: PropTypes.func, 
+    country: PropTypes.string,
+    topConfirmed: PropTypes.object,
+    topDeaths: PropTypes.object,
+    topRecovered: PropTypes.object,
+    getGlobalAndCountriesData: PropTypes.func,
 }
 
 const mapStateToProps = ( state ) => {

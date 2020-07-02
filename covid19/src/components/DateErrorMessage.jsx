@@ -1,15 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Alert } from '@material-ui/lab';
 
-export default class DateErrorMessage extends Component{
+export const DateErrorMessage = () => {
 
-    render() {
-      return (
-        <div>
-            <Alert severity="error">
-                The date input isn't valid!
-            </Alert>
-        </div>
-      );
-    }
-  }
+  return (
+    <div>
+        <Alert severity="error">
+            The date input isn`t valid!
+        </Alert>
+    </div>
+  );
+}
+export default DateErrorMessage
