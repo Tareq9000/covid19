@@ -11,6 +11,8 @@ const initialState = {
     deaths: {},
     recovered: {},
   },
+  dateData: null,
+  dateAlert: false,
 }
 
 export const covidReducer = (state = initialState, action) => {
@@ -25,7 +27,7 @@ export const covidReducer = (state = initialState, action) => {
       return {
         ...state,
         global: action.payload.global,
-        countries: [  
+        countries: [
                     {
                       Country: 'All Countries',
                       CountryCode: 'ac',
@@ -68,6 +70,24 @@ export const covidReducer = (state = initialState, action) => {
           showError: true,
           country: '',
         }
+      case 'SET_COUNTRY_DATE_DATA':
+        return {
+          ...state,
+          dateData: action.payload.dateData.map(obj => {
+            const d = new Date(obj.Date);
+            return {
+              Deaths: obj.Deaths,
+              Date: d.getDate()+'.'+(d.getMonth()+1)+'.'+d.getFullYear(),
+              Recovered: obj.Recovered,
+              Confirmed: obj.Confirmed,
+            }
+          }),
+        }
+        case 'SET_DATE_ALERT':
+          return {
+            ...state,
+            dateAlert: action.payload.dateAlert,
+          }
     default:
       return state
   }
@@ -82,6 +102,18 @@ export const setSpinner = ( spinning ) => {
       type : 'SET_SPINNER',
       payload : {
         spinning: spinning,
+      },
+    })
+  }
+}
+
+export const setDateAlert = ( dateAlert ) => {
+  return ( dispatch ) => {
+    
+    dispatch({
+      type : 'SET_DATE_ALERT',
+      payload : {
+        dateAlert: dateAlert,
       },
     })
   }
@@ -117,6 +149,27 @@ export const getSingleCountry = ( countrySlug ) => {
       payload : {
         country: countrySlug,
       },
+    })
+    dispatch(setSpinner(false))
+  }
+}
+
+export const getCountryDateData = ( countrySlug, startDate, endDate ) => {
+  return ( dispatch ) => {
+    fetchAPI('https://api.covid19api.com/country/'+countrySlug+'?from='+startDate+'T00:00:00Z&to='+endDate+'T00:00:00Z').then(fetchData => {
+ 
+      if(fetchData[0]){
+        dispatch({
+          type : 'SET_COUNTRY_DATE_DATA',
+          payload : {
+            dateData: fetchData[0],
+          },
+        })
+      }else{
+        dispatch({
+          type : 'SHOW_ERROR',
+        })
+      }
     })
     dispatch(setSpinner(false))
   }

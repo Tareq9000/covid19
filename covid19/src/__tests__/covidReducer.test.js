@@ -1,7 +1,4 @@
-import React from 'react';
-import { shallow } from '../enzyme';
-
-import { covidReducer, setSpinner, getGlobalAndCountriesData, getSingleCountry } from '../reducers/covidReducer.js';
+import { covidReducer  } from '../reducers/covidReducer.js';
 
 describe('covidReducer test', () => {
 
@@ -11,6 +8,8 @@ describe('covidReducer test', () => {
             global: {},
             countries: [],
             country: "",
+            dateAlert: false,
+            dateData: null,
             spinning: false,
             showError: false,
             topData: {
@@ -29,6 +28,8 @@ describe('covidReducer test', () => {
           global: {},
           countries: [],
           country: "",
+          dateAlert: false,
+          dateData: null,
           spinning: false,
           showError: true,
           topData: {
@@ -58,6 +59,8 @@ describe('covidReducer test', () => {
           }
         ],
         country: "",
+        dateAlert: false,
+        dateData: null,
         spinning: false,
         showError: false,
         topData: {
@@ -101,6 +104,8 @@ describe('covidReducer test', () => {
             }
           ],
           country: "switzerland",
+          dateAlert: false,
+          dateData: null,
           spinning: false,
           showError: false,
           topData: {
@@ -113,26 +118,23 @@ describe('covidReducer test', () => {
     })
 
     it('should set the spinner', () => {
-      const action = {
+      const action1 = {
         type : 'SET_SPINNER',
         payload: {
           spinning: true
         }
       }
-      expect(covidReducer(undefined, action)).toEqual(
-        {
-          global: {},
-          countries: [],
-          country: "",
-          spinning: true,
-          showError: false,
-          topData: {
-              confirmed: {},
-              deaths: {},
-              recovered: {}
-          }
+      const action2 = {
+        type : 'SET_SPINNER',
+        payload: {
+          spinning: false
         }
-      )
+      }
+      const state = {
+        spinning: true,
+      }
+      expect(covidReducer(undefined, action1).spinning).toEqual(true)
+      expect(covidReducer(state, action2).spinning).toEqual(false)
     })
 
     it('should set the global and the country data', () => {
@@ -193,6 +195,8 @@ describe('covidReducer test', () => {
             }
           ],
           country: "all countries",
+          dateAlert: false,
+          dateData: null,
           spinning: false,
           showError: false,
           topData: {
@@ -218,5 +222,84 @@ describe('covidReducer test', () => {
         }
       )
     })
+    it('should remove the error', () => {
+      const action1 = {
+        type : 'SET_COUNTRY',
+        payload : {
+          country: '',
+          countries: [],
+        },
+      }
+      const action2 = {
+        type : 'SET_GLOBAL_COUNTRY_DATA',
+        payload : {
+          country: '',
+          countries: [],
+          global: {},
+        },
+      }
+      const state = {
+        global: {},
+        countries: [],
+        country: "",
+        dateAlert: false,
+        dateData: null,
+        spinning: false,
+        showError: true,
+        topData: {
+            confirmed: {},
+            deaths: {},
+            recovered: {},
+        },
+      }
+      expect(covidReducer(state, action1).showError).toEqual(false)
+      expect(covidReducer(state, action2).showError).toEqual(false)
+    })
+
+    it('should set the date based data', () => {
+      const action = {
+        type : 'SET_COUNTRY_DATE_DATA',
+        payload : {
+          dateData: [
+            {
+              Deaths: '3',
+              Recovered: '127',
+              Confirmed: '232',
+              Date: '2020-6-24',
+            }
+          ]
+        },
+      }
+      expect(covidReducer(undefined, action).dateData).toEqual(
+        [
+          {
+            Deaths: '3',
+            Recovered: '127',
+            Confirmed: '232',
+            Date: '24.6.2020',
+          }
+        ]
+      )
+  })
+
+  it('should set date alert', () => {
+    const action1 = {
+      type : 'SET_DATE_ALERT',
+      payload : {
+        dateAlert: true,
+      },
+    }
+    const action2 = {
+      type : 'SET_DATE_ALERT',
+      payload : {
+        dateAlert: false,
+      },
+    }
+    const state = {
+      dateAlert: true,
+    }
+    expect(covidReducer(undefined, action1).dateAlert).toEqual(true)
+    expect(covidReducer(state, action2).dateAlert).toEqual(false)
+  })
 
 });

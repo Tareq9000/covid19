@@ -1,13 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux'
-import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { createStore, combineReducers, compose, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import App from './components/App.jsx'
 import covidReducer from './reducers/covidReducer.js'
-const store = createStore(combineReducers({covidReducer: covidReducer}), applyMiddleware(thunk))
 
-const rendering = () => { 
+const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const store = createStore(
+  combineReducers({covidReducer: covidReducer}),
+  composeEnhancer(applyMiddleware(thunk)),
+)
+
+const rendering = () => {
   ReactDOM.render(
     <Provider store={store}>
       <div>

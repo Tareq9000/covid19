@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { getSingleCountry, setSpinner, getGlobalAndCountriesData } from '../reducers/covidReducer.js';
@@ -8,6 +8,8 @@ import { Select, MenuItem, InputLabel, FormControl, Paper, TableContainer, Table
 import styles from '../styles/Summary.module.css';
 
 import { Chart, BarSeries, ArgumentAxis, ValueAxis } from '@devexpress/dx-react-chart-material-ui';
+
+import DateSummary from './DateSummary.jsx'
 
 export class Summary extends Component{
 
@@ -21,14 +23,14 @@ export class Summary extends Component{
     }
 
     render() {
-        const { newConfirmed, 
-                totalConfirmed, 
-                newDeaths, 
-                totalDeaths, 
-                newRecovered, 
-                totalRecovered, 
-                countries, 
-                getCountry, 
+        const { newConfirmed,
+                totalConfirmed,
+                newDeaths,
+                totalDeaths,
+                newRecovered,
+                totalRecovered,
+                countries,
+                getCountry,
                 country,
                 topConfirmed,
                 topDeaths,
@@ -123,15 +125,38 @@ export class Summary extends Component{
                      </div>
 
                 </div>
-
+                { !isAllCountries ? <DateSummary /> : null }
             </div>
         );
     }
 }
+Summary.propTypes = {
+    newConfirmed: PropTypes.number,
+    totalConfirmed: PropTypes.number,
+    newDeaths: PropTypes.number,
+    totalDeaths: PropTypes.number,
+    newRecovered: PropTypes.number,
+    totalRecovered: PropTypes.number,
+    countries: PropTypes.array,
+    getCountry: PropTypes.func,
+    country: PropTypes.string,
+    topConfirmed: PropTypes.shape({
+        Country: PropTypes.string,
+        TotalConfirmed: PropTypes.number,
+    }),
+    topDeaths: PropTypes.shape({
+        Country: PropTypes.string,
+        TotalDeaths: PropTypes.number,
+    }),
+    topRecovered: PropTypes.shape({
+        Country: PropTypes.string,
+        TotalRecovered: PropTypes.number,
+    }),
+    getGlobalAndCountriesData: PropTypes.func,
+}
 
 const mapStateToProps = ( state ) => {
     const { global, countries, country, topData } = state.covidReducer
-
     return global ? {
         newConfirmed: global.NewConfirmed,
         totalConfirmed: global.TotalConfirmed,
