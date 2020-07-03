@@ -27,7 +27,7 @@ export const covidReducer = (state = initialState, action) => {
       return {
         ...state,
         global: action.payload.global,
-        countries: [  
+        countries: [
                     {
                       Country: 'All Countries',
                       CountryCode: 'ac',
@@ -76,9 +76,9 @@ export const covidReducer = (state = initialState, action) => {
           dateData: action.payload.dateData.map(obj => {
             const d = new Date(obj.Date);
             return {
-              Deaths: obj.Deaths, 
-              Date: d.getDate()+'.'+(d.getMonth()+1)+'.'+d.getFullYear(), 
-              Recovered: obj.Recovered, 
+              Deaths: obj.Deaths,
+              Date: d.getDate()+'.'+(d.getMonth()+1)+'.'+d.getFullYear(),
+              Recovered: obj.Recovered,
               Confirmed: obj.Confirmed,
             }
           }),

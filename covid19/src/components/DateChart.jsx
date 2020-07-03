@@ -50,7 +50,14 @@ export const DateChart = ( props ) => {
     ) : <div />
 }
 DateChart.propTypes = {
-    dateData: PropTypes.object,
+    dateData: PropTypes.arrayOf(
+        PropTypes.shape({
+            Confirmed: PropTypes.number,
+            Date: PropTypes.string,
+            Deaths: PropTypes.number,
+            Recovered: PropTypes.number,
+        }),
+    ),
 }
 
 const mapStateToProps = ( state ) => {

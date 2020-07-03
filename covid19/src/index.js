@@ -9,11 +9,11 @@ import covidReducer from './reducers/covidReducer.js'
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(
-  combineReducers({covidReducer: covidReducer}), 
-  composeEnhancer(applyMiddleware(thunk)), 
+  combineReducers({covidReducer: covidReducer}),
+  composeEnhancer(applyMiddleware(thunk)),
 )
 
-const rendering = () => { 
+const rendering = () => {
   ReactDOM.render(
     <Provider store={store}>
       <div>

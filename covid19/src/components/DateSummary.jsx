@@ -15,7 +15,7 @@ export class DateSummary extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            startDate: '', 
+            startDate: '',
             endDate: '',
         }
     }
@@ -44,7 +44,7 @@ export class DateSummary extends Component {
         today.setDate(today.getDate()-1)
         today = today.toISOString().split('T')[0]
 
-        today < event.target.value ? 
+        today < event.target.value ?
         this.setState({endDate: today}) :
         this.setState({endDate: event.target.value})
     }
@@ -91,10 +91,11 @@ export class DateSummary extends Component {
     }
 }
 DateSummary.propTypes = {
-    country: PropTypes.string, 
-    getCountryDateData: PropTypes.func, 
-    setDat: PropTypes.func, 
+    country: PropTypes.string,
+    getCountryDateData: PropTypes.func,
+    setDat: PropTypes.func,
     dateAlert: PropTypes.bool,
+    setDateAlert: PropTypes.func,
 }
 
 const mapStateToProps = ( state ) => {
