@@ -7,7 +7,7 @@ describe('covidReducer test', () => {
           {
             global: {},
             countries: [],
-            country: "",
+            country: '',
             dateAlert: false,
             dateData: null,
             spinning: false,
@@ -15,8 +15,8 @@ describe('covidReducer test', () => {
             topData: {
                 confirmed: {},
                 deaths: {},
-                recovered: {}
-            }
+                recovered: {},
+            },
           }
         )
     })
@@ -27,7 +27,7 @@ describe('covidReducer test', () => {
         {
           global: {},
           countries: [],
-          country: "",
+          country: '',
           dateAlert: false,
           dateData: null,
           spinning: false,
@@ -35,8 +35,8 @@ describe('covidReducer test', () => {
           topData: {
               confirmed: {},
               deaths: {},
-              recovered: {}
-          }
+              recovered: {},
+          },
         }
       )
     })
@@ -46,19 +46,19 @@ describe('covidReducer test', () => {
         global: {},
         countries: [
           {
-            Country: "Switzerland",
-            CountryCode: "CH",
-            Date: "2020-06-19T08:43:19Z",
+            Country: 'Switzerland',
+            CountryCode: 'CH',
+            Date: '2020-06-19T08:43:19Z',
             NewConfirmed: 13,
             NewDeaths: 0,
             NewRecovered: 0,
-            Slug: "switzerland",
+            Slug: 'switzerland',
             TotalConfirmed: 31200,
             TotalDeaths: 1956,
-            TotalRecovered: 28900
-          }
+            TotalRecovered: 28900,
+          },
         ],
-        country: "",
+        country: '',
         dateAlert: false,
         dateData: null,
         spinning: false,
@@ -66,44 +66,44 @@ describe('covidReducer test', () => {
         topData: {
             confirmed: {},
             deaths: {},
-            recovered: {}
-        }
+            recovered: {},
+        },
       }
       const action = {
         type : 'SET_COUNTRY',
         payload : {
-          country: "switzerland"
-        }
+          country: 'switzerland',
+        },
       }
       expect(covidReducer(state, action)).toEqual(
         {
           global: {
-            Country: "Switzerland",
-            CountryCode: "CH",
-            Date: "2020-06-19T08:43:19Z",
+            Country: 'Switzerland',
+            CountryCode: 'CH',
+            Date: '2020-06-19T08:43:19Z',
             NewConfirmed: 13,
             NewDeaths: 0,
             NewRecovered: 0,
-            Slug: "switzerland",
+            Slug: 'switzerland',
             TotalConfirmed: 31200,
             TotalDeaths: 1956,
-            TotalRecovered: 28900
+            TotalRecovered: 28900,
           },
           countries: [
             {
-              Country: "Switzerland",
-              CountryCode: "CH",
-              Date: "2020-06-19T08:43:19Z",
+              Country: 'Switzerland',
+              CountryCode: 'CH',
+              Date: '2020-06-19T08:43:19Z',
               NewConfirmed: 13,
               NewDeaths: 0,
               NewRecovered: 0,
-              Slug: "switzerland",
+              Slug: 'switzerland',
               TotalConfirmed: 31200,
               TotalDeaths: 1956,
-              TotalRecovered: 28900
-            }
+              TotalRecovered: 28900,
+            },
           ],
-          country: "switzerland",
+          country: 'switzerland',
           dateAlert: false,
           dateData: null,
           spinning: false,
@@ -111,8 +111,8 @@ describe('covidReducer test', () => {
           topData: {
               confirmed: {},
               deaths: {},
-              recovered: {}
-          }
+              recovered: {},
+          },
         }
       )
     })
@@ -121,14 +121,14 @@ describe('covidReducer test', () => {
       const action1 = {
         type : 'SET_SPINNER',
         payload: {
-          spinning: true
-        }
+          spinning: true,
+        },
       }
       const action2 = {
         type : 'SET_SPINNER',
         payload: {
-          spinning: false
-        }
+          spinning: false,
+        },
       }
       const state = {
         spinning: true,
@@ -142,83 +142,82 @@ describe('covidReducer test', () => {
         type : 'SET_GLOBAL_COUNTRY_DATA',
         payload : {
           global: {
-            Country: "Global Country",
+            Country: 'Global Country',
             TotalConfirmed: 181200,
             TotalDeaths: 14956,
-            TotalRecovered: 228900
+            TotalRecovered: 228900,
           },
           countries: [
             {
-              Country: "Country one",
+              Country: 'Country one',
               TotalConfirmed: 31200,
               TotalDeaths: 1956,
-              TotalRecovered: 28900
+              TotalRecovered: 28900,
             },
             {
-              Country: "Country two",
+              Country: 'Country two',
               TotalConfirmed: 61200,
               TotalDeaths: 1256,
-              TotalRecovered: 28901
-            }
-          ]
-        }
+              TotalRecovered: 28901,
+            },
+          ],
+        },
       }
       expect(covidReducer(undefined, action)).toEqual(
         {
           global: {
-            Country: "Global Country",
+            Country: 'Global Country',
             TotalConfirmed: 181200,
             TotalDeaths: 14956,
-            TotalRecovered: 228900
+            TotalRecovered: 228900,
           },
           countries: [
             {
-              Country: "All Countries",
-              CountryCode: "ac",
-              Slug: "all countries",
-              Country: "Global Country",
+              CountryCode: 'ac',
+              Slug: 'all countries',
+              Country: 'Global Country',
               TotalConfirmed: 181200,
               TotalDeaths: 14956,
-              TotalRecovered: 228900
+              TotalRecovered: 228900,
             },
             {
-              Country: "Country one",
+              Country: 'Country one',
               TotalConfirmed: 31200,
               TotalDeaths: 1956,
-              TotalRecovered: 28900
+              TotalRecovered: 28900,
             },
             {
-              Country: "Country two",
+              Country: 'Country two',
               TotalConfirmed: 61200,
               TotalDeaths: 1256,
-              TotalRecovered: 28901
-            }
+              TotalRecovered: 28901,
+            },
           ],
-          country: "all countries",
+          country: 'all countries',
           dateAlert: false,
           dateData: null,
           spinning: false,
           showError: false,
           topData: {
               confirmed: {
-                Country: "Country two",
+                Country: 'Country two',
                 TotalConfirmed: 61200,
                 TotalDeaths: 1256,
-                TotalRecovered: 28901
+                TotalRecovered: 28901,
               },
               deaths: {
-                Country: "Country one",
+                Country: 'Country one',
                 TotalConfirmed: 31200,
                 TotalDeaths: 1956,
-                TotalRecovered: 28900
+                TotalRecovered: 28900,
               },
               recovered: {
-                Country: "Country two",
+                Country: 'Country two',
                 TotalConfirmed: 61200,
                 TotalDeaths: 1256,
-                TotalRecovered: 28901
-              }
-          }
+                TotalRecovered: 28901,
+              },
+          },
         }
       )
     })
@@ -241,7 +240,7 @@ describe('covidReducer test', () => {
       const state = {
         global: {},
         countries: [],
-        country: "",
+        country: '',
         dateAlert: false,
         dateData: null,
         spinning: false,
@@ -266,8 +265,8 @@ describe('covidReducer test', () => {
               Recovered: '127',
               Confirmed: '232',
               Date: '2020-6-24',
-            }
-          ]
+            },
+          ],
         },
       }
       expect(covidReducer(undefined, action).dateData).toEqual(
@@ -277,7 +276,7 @@ describe('covidReducer test', () => {
             Recovered: '127',
             Confirmed: '232',
             Date: '24.6.2020',
-          }
+          },
         ]
       )
   })
