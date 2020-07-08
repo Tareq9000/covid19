@@ -1,0 +1,131 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DateErrorMessage test should render correctly 1`] = `
+<DateErrorMessage>
+  <div>
+    <WithStyles(ForwardRef(Alert))
+      severity="error"
+    >
+      <ForwardRef(Alert)
+        classes={
+          Object {
+            "action": "MuiAlert-action",
+            "filledError": "MuiAlert-filledError",
+            "filledInfo": "MuiAlert-filledInfo",
+            "filledSuccess": "MuiAlert-filledSuccess",
+            "filledWarning": "MuiAlert-filledWarning",
+            "icon": "MuiAlert-icon",
+            "message": "MuiAlert-message",
+            "outlinedError": "MuiAlert-outlinedError",
+            "outlinedInfo": "MuiAlert-outlinedInfo",
+            "outlinedSuccess": "MuiAlert-outlinedSuccess",
+            "outlinedWarning": "MuiAlert-outlinedWarning",
+            "root": "MuiAlert-root",
+            "standardError": "MuiAlert-standardError",
+            "standardInfo": "MuiAlert-standardInfo",
+            "standardSuccess": "MuiAlert-standardSuccess",
+            "standardWarning": "MuiAlert-standardWarning",
+          }
+        }
+        severity="error"
+      >
+        <WithStyles(ForwardRef(Paper))
+          className="MuiAlert-root MuiAlert-standardError"
+          elevation={0}
+          role="alert"
+          square={true}
+        >
+          <ForwardRef(Paper)
+            className="MuiAlert-root MuiAlert-standardError"
+            classes={
+              Object {
+                "elevation0": "MuiPaper-elevation0",
+                "elevation1": "MuiPaper-elevation1",
+                "elevation10": "MuiPaper-elevation10",
+                "elevation11": "MuiPaper-elevation11",
+                "elevation12": "MuiPaper-elevation12",
+                "elevation13": "MuiPaper-elevation13",
+                "elevation14": "MuiPaper-elevation14",
+                "elevation15": "MuiPaper-elevation15",
+                "elevation16": "MuiPaper-elevation16",
+                "elevation17": "MuiPaper-elevation17",
+                "elevation18": "MuiPaper-elevation18",
+                "elevation19": "MuiPaper-elevation19",
+                "elevation2": "MuiPaper-elevation2",
+                "elevation20": "MuiPaper-elevation20",
+                "elevation21": "MuiPaper-elevation21",
+                "elevation22": "MuiPaper-elevation22",
+                "elevation23": "MuiPaper-elevation23",
+                "elevation24": "MuiPaper-elevation24",
+                "elevation3": "MuiPaper-elevation3",
+                "elevation4": "MuiPaper-elevation4",
+                "elevation5": "MuiPaper-elevation5",
+                "elevation6": "MuiPaper-elevation6",
+                "elevation7": "MuiPaper-elevation7",
+                "elevation8": "MuiPaper-elevation8",
+                "elevation9": "MuiPaper-elevation9",
+                "outlined": "MuiPaper-outlined",
+                "root": "MuiPaper-root",
+                "rounded": "MuiPaper-rounded",
+              }
+            }
+            elevation={0}
+            role="alert"
+            square={true}
+          >
+            <div
+              className="MuiPaper-root MuiAlert-root MuiAlert-standardError MuiPaper-elevation0"
+              role="alert"
+            >
+              <div
+                className="MuiAlert-icon"
+              >
+                <ForwardRef
+                  fontSize="inherit"
+                >
+                  <WithStyles(ForwardRef(SvgIcon))
+                    fontSize="inherit"
+                  >
+                    <ForwardRef(SvgIcon)
+                      classes={
+                        Object {
+                          "colorAction": "MuiSvgIcon-colorAction",
+                          "colorDisabled": "MuiSvgIcon-colorDisabled",
+                          "colorError": "MuiSvgIcon-colorError",
+                          "colorPrimary": "MuiSvgIcon-colorPrimary",
+                          "colorSecondary": "MuiSvgIcon-colorSecondary",
+                          "fontSizeInherit": "MuiSvgIcon-fontSizeInherit",
+                          "fontSizeLarge": "MuiSvgIcon-fontSizeLarge",
+                          "fontSizeSmall": "MuiSvgIcon-fontSizeSmall",
+                          "root": "MuiSvgIcon-root",
+                        }
+                      }
+                      fontSize="inherit"
+                    >
+                      <svg
+                        aria-hidden={true}
+                        className="MuiSvgIcon-root MuiSvgIcon-fontSizeInherit"
+                        focusable="false"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M11 15h2v2h-2zm0-8h2v6h-2zm.99-5C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"
+                        />
+                      </svg>
+                    </ForwardRef(SvgIcon)>
+                  </WithStyles(ForwardRef(SvgIcon))>
+                </ForwardRef>
+              </div>
+              <div
+                className="MuiAlert-message"
+              >
+                The date input isn\`t valid!
+              </div>
+            </div>
+          </ForwardRef(Paper)>
+        </WithStyles(ForwardRef(Paper))>
+      </ForwardRef(Alert)>
+    </WithStyles(ForwardRef(Alert))>
+  </div>
+</DateErrorMessage>
+`;

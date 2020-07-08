@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ErrorMessage test should render correctly 1`] = `
+<div
+  className="box"
+>
+  <div
+    className="innerBox$"
+  >
+    <ErrorIcon
+      className="icon"
+    />
+    <div
+      className="text"
+    >
+      ERROR! It seems like there is a Problem with getting the data. Please try agin
+    </div>
+    <button>
+      Try again
+    </button>
+  </div>
+</div>
+`;
